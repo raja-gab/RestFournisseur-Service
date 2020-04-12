@@ -19,8 +19,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/fournissur/**").permitAll();
 	        http.authorizeRequests().antMatchers(HttpMethod.GET, "/fournissur/**").permitAll();
-	        http.authorizeRequests().antMatchers("/articles/**").permitAll();
-	       
+	        http.authorizeRequests().antMatchers("/article/**").permitAll();
+	        http.authorizeRequests().antMatchers("/addarticle/**").permitAll();
+	        http.authorizeRequests().antMatchers("/modifyarticle/**").permitAll();
+	        http.authorizeRequests().antMatchers("/getallarticle/**").permitAll();
+	        http.authorizeRequests().antMatchers("/deletearticle/**").permitAll();
+	        http.authorizeRequests().antMatchers("/getproduct/**").permitAll();
+	        
+	        
 	        http.authorizeRequests().anyRequest().authenticated();
 	       http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	    }

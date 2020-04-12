@@ -25,7 +25,7 @@ public class FournisseurController {
 		private FournisseurService fournisseurService ;
 		
 		
-		
+		/* Gestion des Articles  Ajout + Update + Delete + Affichage */
 		
 		@PostMapping("/addarticle")
 		public Article addArticle (@RequestBody Article article) {
@@ -63,7 +63,6 @@ public class FournisseurController {
 		public Article modifyFour(@RequestBody Article article , @PathVariable("id") String id) {
 			
 					Article art = new Article();
-					
 					art.setDesigntationArt(article.getDesigntationArt());
 					art.setDescriptionArt(article.getDescriptionArt());
 					art.setImageName(article.getImageName());
@@ -74,18 +73,18 @@ public class FournisseurController {
 					art.setTauxRemiseArt(article.getTauxRemiseArt());
 					art.setFournisseurArt(article.getFournisseurArt());
 						
-			fournisseurService.updatArticle(art);
+			fournisseurService.updatArticle(art,id);
 			return art;	
 		}
 		
 		@DeleteMapping ("deletearticle/{id}")
 		public void deleteArticle (@PathVariable("id") String id)
 		{
-			fournisseurService.deleteArticle(id);
-			
+			fournisseurService.deleteArticle(id);	
 		}
 		
 		
+		/* Modifier Porfil Fournisseur */
 		
 	
 
