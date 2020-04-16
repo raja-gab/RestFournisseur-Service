@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fournisseur {
+public class Fournisseur extends Utilisateur {
 	
-	private String idFour;
-	private String nomFour;
+	
+	private String adresseFour; 
+	private String	numTelFour; 
 
 }

@@ -15,7 +15,7 @@ public class Article {
 	
 	
 	private String idArt;
-	private String imageName ;
+	
 	private String designtationArt;
 	private String descriptionArt;
 	private  double prixArt;
@@ -27,8 +27,8 @@ public class Article {
 	private SousCategorie sousCategorieArt;
 
 	private Fournisseur fournisseurArt;
-
 	
+	private ImageModel imageModel ;
 	
 
 }

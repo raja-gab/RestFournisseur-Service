@@ -2,10 +2,11 @@ package com.example.demo.service;
 
 
 
-import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.entity.Article;
+import com.example.demo.entity.Categorie;
+import com.example.demo.entity.Fournisseur;
+import com.example.demo.entity.Marque;
+import com.example.demo.entity.SousCategorie;
+
+
 
 
 
@@ -21,11 +28,13 @@ import com.example.demo.entity.Article;
 public interface FournisseurService {
 
 	
+	// Article
+	
 	@GetMapping("/article/{id}")
 	public Optional<Article> getArticleById(@PathVariable("id") String id);
 	
-	@GetMapping("/getallarticle")
-	public List<Article> getAllArticles();
+	@GetMapping("/article")
+	public CollectionModel <Article> findAllArticle(); 
 	
 	@PostMapping("/article")
 	public Article addArticle (@RequestBody Article article);	
@@ -37,6 +46,64 @@ public interface FournisseurService {
 	public Optional<Article>  deleteArticle (@PathVariable("id") String id);
 	
 	
+	// Marque 
+	
+	@PostMapping("/marque")
+	public Marque addMarque (@RequestBody Marque marque);
+	
+	@GetMapping ("/marque")
+	public CollectionModel<Marque> findAllMarque ();
+	
+	@GetMapping ("/marque/{id}")
+	public Optional<Marque> findMarqueById(@PathVariable ("id") String id );
+	
+	@PutMapping("marque/{id}")
+	public Marque updateMarque (@RequestBody Marque marque ,@PathVariable ("id") String id ); 
+	
+	@DeleteMapping ("/marque/{id}")
+	public void deleteMarque (@PathVariable ("id") String id);
 	
 	
+	// Sous_Cathegorie
+	
+	@PostMapping("/souscategorie")
+	public SousCategorie addSousCategorie (@RequestBody SousCategorie sousCategorie);
+	
+	@GetMapping ("/souscategorie")
+	public CollectionModel<SousCategorie> findAllSousCategorie ();
+	
+	@GetMapping ("/souscategorie/{id}")
+	public Optional<SousCategorie> findSousCategorieById(@PathVariable ("id") String id );
+	
+	@PutMapping("souscategorie/{id}")
+	public SousCategorie updateSousCategorie (@RequestBody SousCategorie marque ,@PathVariable ("id") String id ); 
+	
+	@DeleteMapping ("/souscategorie/{id}")
+	public void deleteSousCategorie (@PathVariable ("id") String id);
+	
+	
+	// Categorie 
+	
+	@PostMapping("/categorie")
+	public Categorie addCategorie (@RequestBody Categorie categorie);
+	
+	@GetMapping ("/categorie")
+	public CollectionModel<Categorie> findAllCategorie ();
+	
+	@GetMapping ("/categorie/{id}")
+	public Optional<Categorie> findCategorieById(@PathVariable ("id") String id );
+	
+	@PutMapping("categorie/{id}")
+	public Categorie updateCategorie (@RequestBody Categorie categorie ,@PathVariable ("id") String id ); 
+	
+	@DeleteMapping ("/categorie/{id}")
+	public void deleteCategorie (@PathVariable ("id") String id);
+	
+	// Fournisseur 
+	
+	@GetMapping ("/fournisseur/{id}")
+	public Fournisseur findFournisseurById (@PathVariable ("id") String id);
+	
+	@PutMapping ("/fournisseur/{id}")
+	public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("id") String id );
 }
