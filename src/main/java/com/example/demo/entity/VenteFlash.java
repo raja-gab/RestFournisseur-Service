@@ -21,6 +21,6 @@ public class VenteFlash {
 	private String idVF;
 	private LocalDateTime dateDebVF;
 	private LocalDateTime dateFinVF;
-	private List<ArticleVenteFlash> articleVenteFlashs ;
+	private List<ArticleVenteFlash> articleVenteFlash ;
 
 }
