@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.entity.Article;
 import com.example.demo.entity.Categorie;
+
 import com.example.demo.entity.Fournisseur;
 import com.example.demo.entity.Marque;
 import com.example.demo.entity.SousCategorie;
+import com.example.demo.entity.VenteFlash;
 
 
 
@@ -31,7 +33,7 @@ public interface FournisseurService {
 	// Article
 	
 	@GetMapping("/article/{id}")
-	public Optional<Article> getArticleById(@PathVariable("id") String id);
+	public Article getArticleById(@PathVariable("id") String id);
 	
 	@GetMapping("/article")
 	public CollectionModel <Article> findAllArticle(); 
@@ -55,7 +57,7 @@ public interface FournisseurService {
 	public CollectionModel<Marque> findAllMarque ();
 	
 	@GetMapping ("/marque/{id}")
-	public Optional<Marque> findMarqueById(@PathVariable ("id") String id );
+	public Marque findMarqueById(@PathVariable ("id") String id );
 	
 	@PutMapping("marque/{id}")
 	public Marque updateMarque (@RequestBody Marque marque ,@PathVariable ("id") String id ); 
@@ -73,7 +75,7 @@ public interface FournisseurService {
 	public CollectionModel<SousCategorie> findAllSousCategorie ();
 	
 	@GetMapping ("/souscategorie/{id}")
-	public Optional<SousCategorie> findSousCategorieById(@PathVariable ("id") String id );
+	public SousCategorie findSousCategorieById(@PathVariable ("id") String id );
 	
 	@PutMapping("souscategorie/{id}")
 	public SousCategorie updateSousCategorie (@RequestBody SousCategorie marque ,@PathVariable ("id") String id ); 
@@ -91,7 +93,7 @@ public interface FournisseurService {
 	public CollectionModel<Categorie> findAllCategorie ();
 	
 	@GetMapping ("/categorie/{id}")
-	public Optional<Categorie> findCategorieById(@PathVariable ("id") String id );
+	public Categorie findCategorieById(@PathVariable ("id") String id );
 	
 	@PutMapping("categorie/{id}")
 	public Categorie updateCategorie (@RequestBody Categorie categorie ,@PathVariable ("id") String id ); 
@@ -106,4 +108,41 @@ public interface FournisseurService {
 	
 	@PutMapping ("/fournisseur/{id}")
 	public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("id") String id );
+	
+	
+	// Etat Article Vente Flash 
+	
+	
+	/*@GetMapping ("/etatventeflash/{id}")
+	public EtatArticleVenteFlash findEtatArticleVenteFlashById(@PathVariable ("id") String id );
+	
+	@PostMapping("/etatarticleventeflash")
+	public EtatArticleVenteFlash addEtatArticleVenteFlash (@RequestBody EtatArticleVenteFlash etatArticleVenteFlash);
+	*/
+	
+	// Vente Flash 
+	
+	
+	@GetMapping ("/venteflash")
+	public CollectionModel<VenteFlash> findAllVenteFlash ();
+	
+	@GetMapping ("/venteflash/{id}")
+	public VenteFlash findVenteFlashById(@PathVariable ("id") String id );
+	
+	@PostMapping("/venteflash")
+	public VenteFlash addVenteFlash (@RequestBody VenteFlash venteFlash);
+	
+	@DeleteMapping("/venteflash/{id}")
+	public void deleteVenteFlash (@PathVariable ("id") String id);
+		
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 }

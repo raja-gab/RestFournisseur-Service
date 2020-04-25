@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Categorie {
 	
-	private String idCat;
+	private String _id;
 	private String libelleCat;
 
 }

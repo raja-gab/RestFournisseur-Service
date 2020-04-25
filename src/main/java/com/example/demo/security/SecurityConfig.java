@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        http.authorizeRequests().antMatchers("/categorie/**").permitAll();
 	        http.authorizeRequests().antMatchers("/getfournisseur/**").permitAll();
 	        http.authorizeRequests().antMatchers("/mofiyfournisseur/**").permitAll();
+	        http.authorizeRequests().antMatchers("/postventeflash/**").permitAll();
 	        
 	        
 	        http.authorizeRequests().anyRequest().authenticated();

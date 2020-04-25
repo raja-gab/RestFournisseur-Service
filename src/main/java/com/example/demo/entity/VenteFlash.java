@@ -1,10 +1,15 @@
 package com.example.demo.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 
 @Data
@@ -14,12 +19,8 @@ public class VenteFlash {
 	
 
 	private String idVF;
-	private Date dateDebVF;
-	private Date dateFinVF;
-	private float promotionVF;
-	private int qteVF;
-
-	private Article articleVF;
-	private Fournisseur fournisseurVF;
+	private LocalDateTime dateDebVF;
+	private LocalDateTime dateFinVF;
+	private List<ArticleVenteFlash> articleVenteFlashs ;
 
 }
