@@ -1,16 +1,10 @@
 package com.example.demo.controller;
 
 
-
-
-import java.awt.Image;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Article;
+import com.example.demo.entity.ArticleVenteFlash;
 import com.example.demo.entity.Categorie;
 
 import com.example.demo.entity.Fournisseur;
@@ -38,13 +33,13 @@ public class FournisseurController {
 	
 		@Autowired
 		private FournisseurService fournisseurService ;
-		//@Autowired
-		//private RestAdminService restAdminService;
+		@Autowired
+		private RestAdminService restAdminService;
 		
 		
 		/* Gestion des Articles  Ajout + Update + Delete + Affichage */
 		
-		@PostMapping("/addarticle")
+		@PostMapping("/article")
 		public Article addArticle (@RequestBody Article article) {
 			Article art = new Article();
 			art.setIdArt(article.getIdArt());
@@ -67,20 +62,20 @@ public class FournisseurController {
 		}
 
 		
-		 @GetMapping("/listarticle")
+		 @GetMapping("/article")
 		public CollectionModel<Article>  listArticles()
 		{
 			return fournisseurService.findAllArticle();
 		} 
 		
-		@GetMapping("/getproduct/{id}")
+		@GetMapping("/article/{id}")
 		public  Article getArticle(@PathVariable ("id") String id )
 		{
 			return fournisseurService.getArticleById(id);
 		}
 		
 		
-		@PutMapping("/modifyarticle/{id}")
+		@PutMapping("/article/{id}")
 		public Article modifyArticle(@RequestBody Article article , @PathVariable("id") String id) {
 			
 					Article art = new Article();
@@ -103,7 +98,7 @@ public class FournisseurController {
 			return art;	
 		}
 		
-		@DeleteMapping ("deletearticle/{id}")
+		@DeleteMapping ("article/{id}")
 		public void deleteArticle (@PathVariable("id") String id)
 		{
 			fournisseurService.deleteArticle(id);	
@@ -111,7 +106,7 @@ public class FournisseurController {
 		
 		/* Ajout Marque + list Marque */
 		
-		@PostMapping("/marque/add")
+		@PostMapping("/marque")
 		public Marque addMarque (@RequestBody Marque marque )
 		{
 			Marque m = new Marque(); 
@@ -121,7 +116,7 @@ public class FournisseurController {
 			fournisseurService.addMarque(m);
 			return m ; 
 		}
-		@GetMapping ("/marque/list")
+		@GetMapping ("/marque")
 		public CollectionModel<Marque> listMarque ()
 		{
 			return fournisseurService.findAllMarque();
@@ -133,7 +128,7 @@ public class FournisseurController {
 			return fournisseurService.findMarqueById(id);
 		}
 		
-		@PutMapping("/marque/update/{id}")
+		@PutMapping("/marque/{id}")
 		public Marque modifyMarque  (@RequestBody Marque marque, @PathVariable ("id")  String id)
 		{
 			Marque m = new Marque(); 
@@ -147,7 +142,7 @@ public class FournisseurController {
 		
 		/* Afiichage + Ajout Sous_Cathegorie */
 		
-		@PostMapping("/souscategorie/add")
+		@PostMapping("/souscategorie")
 		public SousCategorie addSousCategorie (@RequestBody SousCategorie sousCategorie )
 		{
 			SousCategorie sousCat = new SousCategorie(); 
@@ -166,7 +161,7 @@ public class FournisseurController {
 			
 		}
 		
-		@GetMapping ("/souscategorie/list")
+		@GetMapping ("/souscategorie")
 		public CollectionModel<SousCategorie> listSousCategorie ()
 		{
 			return fournisseurService.findAllSousCategorie();
@@ -182,7 +177,7 @@ public class FournisseurController {
 		
 		/* Ajout + Affichage Categorie */ 
 		
-		@PostMapping("/categorie/add")
+		@PostMapping("/categorie")
 		public Categorie addCategorie (@RequestBody Categorie categorie )
 		{
 			Categorie cat = new Categorie(); 
@@ -193,7 +188,7 @@ public class FournisseurController {
 			return cat; 
 		}
 		
-		@GetMapping ("/categorie/list")
+		@GetMapping ("/categorie")
 		public CollectionModel<Categorie> listCategorie ()
 		{
 			return fournisseurService.findAllCategorie();
@@ -209,13 +204,13 @@ public class FournisseurController {
 		/* Modifier Porfil Fournisseur */
 		
 		
-		@GetMapping ("/getfournisseur/{id}")
+		@GetMapping ("/fournisseur/{id}")
 		public Fournisseur findFournisseurById (@PathVariable ("id") String id )
 		{
 			return fournisseurService.findFournisseurById(id);
 		}
 		
-		@PutMapping ("/mofiyfournisseur/{id}")
+		@PutMapping ("/fournisseur/{id}")
 		public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("id") String id )
 		{
 			Fournisseur four = new Fournisseur();
@@ -232,15 +227,26 @@ public class FournisseurController {
 		
 		/*    Vente Flash      */
 		
-	/*	@PostMapping("/postventeflash")
+		@PostMapping("/venteflash")
 		public VenteFlash postVenteFlash (@RequestBody VenteFlash venteFlash)
 		{
-			VenteFlash v = restAdminService.postVenteFlash(venteFlash);
+			VenteFlash v = restAdminService.findVentFlashById(venteFlash.getIdVF());
+			System.out.println(v.getDateFinVF());
+			System.out.println(v.getDateDebVF());
+			VenteFlash v1 = new VenteFlash();
 			
-			fournisseurService.addVenteFlash(v);
-			return v ; 
+			v1.setDateDebVF(v.getDateDebVF());
+			v1.setDateFinVF(v.getDateFinVF());
+			List<ArticleVenteFlash> a = new ArrayList<>();
 			
-		}*/
+			a.addAll(venteFlash.getArticleVenteFlash());
+		//	System.out.println(a);
+			v1.setArticleVenteFlash(a);
+			System.out.println(v1);
+			fournisseurService.addVenteFlash(v1);
+			return v1 ; 
+			
+		}
 		
 		
 		

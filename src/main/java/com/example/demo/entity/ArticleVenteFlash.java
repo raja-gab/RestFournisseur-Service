@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-class ArticleVenteFlash extends Article {
+public class ArticleVenteFlash extends Article {
 	
-	private  double prixArt;
+	private  double prixArtVF;
 	private int qteStockArtVF;
 	
 	
