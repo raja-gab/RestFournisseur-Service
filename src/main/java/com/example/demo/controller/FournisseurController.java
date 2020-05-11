@@ -27,7 +27,6 @@ import com.example.demo.service.RestAdminService;
 
 
 
-
 @RestController
 public class FournisseurController {
 	
@@ -42,7 +41,7 @@ public class FournisseurController {
 		@PostMapping("/article")
 		public Article addArticle (@RequestBody Article article) {
 			Article art = new Article();
-			art.setIdArt(article.getIdArt());
+			//art.set_Id(article.get_Id());
 			art.setDesigntationArt(article.getDesigntationArt());
 			art.setDescriptionArt(article.getDescriptionArt());
 			art.setImageModel(article.getImageModel());
@@ -61,13 +60,12 @@ public class FournisseurController {
 			
 		}
 
-		
 		 @GetMapping("/article")
 		public CollectionModel<Article>  listArticles()
 		{
 			return fournisseurService.findAllArticle();
 		} 
-		
+
 		@GetMapping("/article/{id}")
 		public  Article getArticle(@PathVariable ("id") String id )
 		{
@@ -188,6 +186,7 @@ public class FournisseurController {
 			return cat; 
 		}
 		
+	
 		@GetMapping ("/categorie")
 		public CollectionModel<Categorie> listCategorie ()
 		{
