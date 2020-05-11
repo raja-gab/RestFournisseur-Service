@@ -3,6 +3,8 @@ package com.example.demo.entity;
 
 
 
+import org.springframework.data.annotation.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Article {
 	
-	
-	private String idArt;
+	@Id
+	private String _id;
 	
 	private String designtationArt;
 	private String descriptionArt;
