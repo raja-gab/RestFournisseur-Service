@@ -27,7 +27,6 @@ import com.example.demo.service.RestAdminService;
 
 
 
-
 @RestController
 public class FournisseurController {
 	
@@ -62,13 +61,12 @@ public class FournisseurController {
 			
 		}
 
-		
 		 @GetMapping("/article")
 		public CollectionModel<Article>  listArticles()
 		{
 			return fournisseurService.findAllArticle();
 		} 
-		
+
 		@GetMapping("/article/{id}")
 		public  Article getArticle(@PathVariable ("id") String id )
 		{
@@ -191,6 +189,7 @@ public class FournisseurController {
 			return cat; 
 		}
 		
+	
 		@GetMapping ("/categorie")
 		public CollectionModel<Categorie> listCategorie ()
 		{
