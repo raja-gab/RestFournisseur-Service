@@ -42,16 +42,17 @@ public class FournisseurController {
 		@PostMapping("/article")
 		public Article addArticle (@RequestBody Article article) {
 			Article art = new Article();
-			art.setIdArt(article.getIdArt());
+			art.setId(article.getId());
+			art.setMat(article.getMat());
 			art.setDesigntationArt(article.getDesigntationArt());
 			art.setDescriptionArt(article.getDescriptionArt());
 			art.setImageModel(article.getImageModel());
 			art.setPrixArt(article.getPrixArt());
 			art.setQteStockArt(article.getQteStockArt());
 			art.setTauxRemiseArt(article.getTauxRemiseArt());
-			Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getIdMarq());
+			Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getId());
 			art.setMarqueArt(m);
-			SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getIdSousCat());
+			SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getId());
 			art.setSousCategorieArt(sousCat);
 			Fournisseur f = fournisseurService.findFournisseurById(article.getFournisseurArt().getUsername());
 			art.setFournisseurArt(f);
@@ -85,9 +86,9 @@ public class FournisseurController {
 					art.setPrixArt(article.getPrixArt());
 					art.setQteStockArt(article.getQteStockArt());
 					art.setTauxRemiseArt(article.getTauxRemiseArt());
-					Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getIdMarq());
+					Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getId());
 					art.setMarqueArt(m);
-					SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getIdSousCat());
+					SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getId());
 					art.setSousCategorieArt(sousCat);
 					Fournisseur f = fournisseurService.findFournisseurById(article.getFournisseurArt().getUsername());
 					art.setFournisseurArt(f);
@@ -110,7 +111,8 @@ public class FournisseurController {
 		public Marque addMarque (@RequestBody Marque marque )
 		{
 			Marque m = new Marque(); 
-			m.setIdMarq(marque.getIdMarq());
+			m.setId(marque.getId());
+			m.setMat(marque.getMat());
 			m.setLibelleMarq(marque.getLibelleMarq());
 			
 			fournisseurService.addMarque(m);
@@ -146,10 +148,11 @@ public class FournisseurController {
 		public SousCategorie addSousCategorie (@RequestBody SousCategorie sousCategorie )
 		{
 			SousCategorie sousCat = new SousCategorie(); 
-			sousCat.setIdSousCat(sousCategorie.getIdSousCat());
+			sousCat.setId(sousCategorie.getId());
+			sousCat.setMat(sousCategorie.getMat());
 			sousCat.setLibelleSousCat(sousCategorie.getLibelleSousCat());
 			sousCat.setValeur(sousCategorie.getValeur());
-			Categorie cat = fournisseurService.findCategorieById(sousCategorie.getCategorie().get_id());
+			Categorie cat = fournisseurService.findCategorieById(sousCategorie.getCategorie().getId());
 			if (cat != null )
 			{
 				System.err.println(cat);
@@ -181,7 +184,7 @@ public class FournisseurController {
 		public Categorie addCategorie (@RequestBody Categorie categorie )
 		{
 			Categorie cat = new Categorie(); 
-			cat.set_id(categorie.get_id());
+			cat.setId(categorie.getId());
 			cat.setLibelleCat(categorie.getLibelleCat());
 			
 			fournisseurService.addCategorie(cat);
@@ -230,7 +233,7 @@ public class FournisseurController {
 		@PostMapping("/venteflash")
 		public VenteFlash postVenteFlash (@RequestBody VenteFlash venteFlash)
 		{
-			VenteFlash v = restAdminService.findVentFlashById(venteFlash.getIdVF());
+			VenteFlash v = restAdminService.findVentFlashById(venteFlash.getId());
 			System.out.println(v.getDateFinVF());
 			System.out.println(v.getDateDebVF());
 			VenteFlash v1 = new VenteFlash();

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class Article {
 	
 	
-	private String idArt;
-	
+	private String id;        
+	private String mat;
 	private String designtationArt;
 	private String descriptionArt;
 	private  double prixArt;
@@ -29,6 +29,10 @@ public class Article {
 	private Fournisseur fournisseurArt;
 	
 	private ImageModel imageModel ;
+	
+	public String getId( ) {
+        return this.mat;
+    }
 	
 
 }

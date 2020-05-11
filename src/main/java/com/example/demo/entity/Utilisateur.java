@@ -9,10 +9,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Utilisateur {
 	
+	private String id;        
+	private String mat;
 	private String username; 
 	private String password ; 
 	private String nom;
 	private String prenom;
 	private String role; 
+	public String getId( ) {
+        return this.mat;
+    }
 
 }
