@@ -13,6 +13,7 @@ public class Utilisateur {
 	private String mat;
 	private String username; 
 	private String password ; 
+	private String confirmedPassword ; 
 	private String nom;
 	private String prenom;
 	private String role; 

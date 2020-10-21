@@ -20,12 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/fournissur/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers(HttpMethod.GET, "/fournissur/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers(HttpMethod.POST, "/fournissur/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
+	        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/fournissur/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 
+	        																				
 	        http.authorizeRequests().antMatchers("/article/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers("/marque/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers("/souscategorie/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers("/categorie/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
 	        http.authorizeRequests().antMatchers("/venteflash/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
+	        http.authorizeRequests().antMatchers("/articleventeflash/**").permitAll()/*hasAuthority("FOURNISSEUR")*/;
+
 	        
 	        
 	        http.authorizeRequests().anyRequest().authenticated();

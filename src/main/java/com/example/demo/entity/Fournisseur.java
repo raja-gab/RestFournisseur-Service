@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Fournisseur extends Utilisateur {
 	
 	
-	private String adresse; 
+    private String address;
 	private String	phoneNumber; 
 
 }

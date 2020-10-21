@@ -24,7 +24,7 @@ public class VenteFlash {
 	private LocalDateTime dateFinVF;
 	private List<ArticleVenteFlash> articleVenteFlash ;
 	
-	public String getId( ) {
+	public String getId() {
         return this.mat;
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +33,12 @@ public class FournisseurController {
 	
 		@Autowired
 		private FournisseurService fournisseurService ;
+		
 		@Autowired
 		private RestAdminService restAdminService;
+		
+		
+		
 		
 		
 		/* Gestion des Articles  Ajout + Update + Delete + Affichage */
@@ -49,6 +54,7 @@ public class FournisseurController {
 			art.setPrixArt(article.getPrixArt());
 			art.setQteStockArt(article.getQteStockArt());
 			art.setTauxRemiseArt(article.getTauxRemiseArt());
+			
 			Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getId());
 			art.setMarqueArt(m);
 			SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getId());
@@ -60,6 +66,8 @@ public class FournisseurController {
 			
 			
 		}
+		
+		
 
 		 @GetMapping("/article")
 		public CollectionModel<Article>  listArticles()
@@ -78,6 +86,7 @@ public class FournisseurController {
 		public Article modifyArticle(@RequestBody Article article , @PathVariable("id") String id) {
 			
 					Article art = new Article();
+					art.setMat(article.getMat());
 					art.setDesigntationArt(article.getDesigntationArt());
 					art.setDescriptionArt(article.getDescriptionArt());
 					art.setImageModel(article.getImageModel());
@@ -183,6 +192,7 @@ public class FournisseurController {
 		{
 			Categorie cat = new Categorie(); 
 			cat.setId(categorie.getId());
+			cat.setMat(categorie.getMat());
 			cat.setLibelleCat(categorie.getLibelleCat());
 			
 			fournisseurService.addCategorie(cat);
@@ -212,7 +222,7 @@ public class FournisseurController {
 			return fournisseurService.findFournisseurById(id);
 		}
 		
-		@PutMapping ("/fournisseur/{id}")
+		/*@PutMapping ("/fournisseur/{username}")
 		public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("id") String id )
 		{
 			Fournisseur four = new Fournisseur();
@@ -223,32 +233,87 @@ public class FournisseurController {
 			four.setPrenom(fournisseur.getPrenom());
 			four.setPhoneNumber(fournisseur.getPhoneNumber());
 			
-			fournisseurService.updateFournisseur(four, id);
+			fournisseurService.updateFournisseur(four, username);
 			return four ; 
-		}
+		}*/
 		
 		/*    Vente Flash      */
 		
 		@PostMapping("/venteflash")
-		public VenteFlash postVenteFlash (@RequestBody VenteFlash venteFlash)
+		public VenteFlash postVenteFlash (@RequestBody VenteFlash venteFlash )
 		{
-			VenteFlash v = restAdminService.findVentFlashById(venteFlash.getId());
+			VenteFlash v = fournisseurService.findVenteFlashById(venteFlash.getMat());
 			System.out.println(v.getDateFinVF());
 			System.out.println(v.getDateDebVF());
 			VenteFlash v1 = new VenteFlash();
-			
+			v1.setMat(venteFlash.getMat());
+			v1.setId(venteFlash.getId());
 			v1.setDateDebVF(v.getDateDebVF());
 			v1.setDateFinVF(v.getDateFinVF());
-			List<ArticleVenteFlash> a = new ArrayList<>();
 			
+			List<ArticleVenteFlash> a = new ArrayList<>();
+			List<ArticleVenteFlash> c= new ArrayList<>();
+			
+
+			
+			c=v.getArticleVenteFlash();	
+
 			a.addAll(venteFlash.getArticleVenteFlash());
-		//	System.out.println(a);
-			v1.setArticleVenteFlash(a);
+			c.addAll(a);
+			
+			System.out.println(c);
+			v1.setArticleVenteFlash(c);
 			System.out.println(v1);
-			fournisseurService.addVenteFlash(v1);
+			fournisseurService.addArticleventeflash(v1);
 			return v1 ; 
 			
 		}
+		
+		
+		@GetMapping ("/venteflash/{id}")
+		public VenteFlash findVenteFlashById (@PathVariable ("id") String id )
+		{
+			return fournisseurService.findVenteFlashById(id);
+		}
+		
+		
+		@GetMapping ("/venteflash")
+		public CollectionModel<VenteFlash> listVenteFlash ()
+		{
+			return fournisseurService.findAllVenteFlash();
+		}
+		
+		
+		
+		/*@PostMapping("/articleventeflash")
+		public ArticleVenteFlash postArticleVenteFlash (@RequestBody ArticleVenteFlash article) {
+			ArticleVenteFlash art = new ArticleVenteFlash();
+			art.setId(article.getId());
+			art.setMat(article.getMat());
+			art.setDesigntationArt(article.getDesigntationArt());
+			art.setDescriptionArt(article.getDescriptionArt());
+			art.setImageModel(article.getImageModel());
+			art.setPrixArt(article.getPrixArt());
+			art.setQteStockArt(article.getQteStockArt());
+			art.setTauxRemiseArt(article.getTauxRemiseArt());
+			
+			Marque m = fournisseurService.findMarqueById(article.getMarqueArt().getId());
+			art.setMarqueArt(m);
+			SousCategorie sousCat = fournisseurService.findSousCategorieById(article.getSousCategorieArt().getId());
+			art.setSousCategorieArt(sousCat);
+			Fournisseur f = fournisseurService.findFournisseurById(article.getFournisseurArt().getUsername());
+			art.setFournisseurArt(f);
+			art.setPrixArtVF(article.getPrixArtVF());
+			art.setQteStockArtVF(article.getQteStockArtVF());
+			
+			
+			fournisseurService.addArticleventeflash(art);
+			return art ;
+			
+			
+		}*/
+		
+		
 		
 		
 		
@@ -259,7 +324,7 @@ public class FournisseurController {
 		
 		/*@PostMapping("/addetatventeflash")
 		 EtatArticleVenteFlash addEtatArticleVenteFlash (@RequestBody EtatArticleVenteFlash etat)
-		{
+		
 			EtatArticleVenteFlash e = new EtatArticleVenteFlash();
 			e.setIdAVF(etat.getIdAVF());
 			e.setPrixAVF(etat.getPrixAVF());

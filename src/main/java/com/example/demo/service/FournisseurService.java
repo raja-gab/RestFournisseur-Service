@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.example.demo.entity.Article;
+import com.example.demo.entity.ArticleVenteFlash;
 import com.example.demo.entity.Categorie;
 
 import com.example.demo.entity.Fournisseur;
@@ -28,6 +28,7 @@ import com.example.demo.entity.VenteFlash;
 
 @FeignClient(name = "CrudApplication" )
 public interface FournisseurService {
+	
 
 	
 	// Article
@@ -106,8 +107,8 @@ public interface FournisseurService {
 	@GetMapping ("/fournisseur/{id}")
 	public Fournisseur findFournisseurById (@PathVariable ("id") String id);
 	
-	@PutMapping ("/fournisseur/{id}")
-	public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("id") String id );
+	//@PutMapping ("/fournisseur/{username}")
+	//public Fournisseur updateFournisseur (@RequestBody Fournisseur fournisseur , @PathVariable ("username") String username );
 	
 	
 	// Etat Article Vente Flash 
@@ -129,12 +130,14 @@ public interface FournisseurService {
 	@GetMapping ("/venteflash/{id}")
 	public VenteFlash findVenteFlashById(@PathVariable ("id") String id );
 	
-	@PostMapping("/venteflash")
-	public VenteFlash addVenteFlash (@RequestBody VenteFlash venteFlash);
 	
 	@DeleteMapping("/venteflash/{id}")
 	public void deleteVenteFlash (@PathVariable ("id") String id);
-		
+	
+	@PostMapping("/venteflash")
+	public Article addArticleventeflash (@RequestBody VenteFlash v1);	
+	
+	
 	
 
 	
